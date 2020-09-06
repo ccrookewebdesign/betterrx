@@ -22,10 +22,15 @@ class ImageUploadController extends Controller {
 
         $image = base64_encode(file_get_contents(request()->file('image')->path()));
 
-        $response = Http::asForm()->post('https://test.rxflodev.com', ['imageData' => $image])->json();
+        //$response = Http::asForm()->post('https://test.rxflodev.com', ['imageData' => $image])->json();
+
+        $response = [];
+        $response['status'] = 'success';
+        $response['url'] = 'https://via.placeholder.com/' . rand(100, 800);
+        $response['message'] = 'Image uploaded successfully.';
 
         if($response['status'] === 'success'){
-            session(['uploadedImages' => Arr::prepend(session('uploadedImages') ?? [], $response['url'])]); // 'https://via.placeholder.com/' . rand(100, 800)
+            session(['uploadedImages' => Arr::prepend(session('uploadedImages') ?? [], $response['url'])]);
             session()->save();
         }
 

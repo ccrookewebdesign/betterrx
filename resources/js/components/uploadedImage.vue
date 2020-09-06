@@ -1,6 +1,6 @@
 <template>
     <div>
-        <img :src="image" class="w-full sm:w-4/5 mx-auto"><br>
+        <img :src="image" class="w-full rounded sm:w-4/5 mx-auto"><br>
     </div>
 </template>
 

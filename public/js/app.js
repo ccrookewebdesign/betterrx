@@ -1950,6 +1950,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1961,6 +1990,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       image: null,
       previewImage: null,
+      modalImage: null,
       errorMessage: null,
       successMessage: null,
       uploadedImages: []
@@ -2007,6 +2037,11 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (e) {
         console.log('e', e);
       });
+    },
+    closeModal: function closeModal(e) {
+      if (!['innerModal', 'modalImage'].includes(e.srcElement.id)) {
+        this.modalImage = null;
+      }
     }
   },
   created: function created() {
@@ -2016,6 +2051,17 @@ __webpack_require__.r(__webpack_exports__);
       _this3.uploadedImages = resp.data.uploadedImages === null ? [] : resp.data.uploadedImages; // console.log('uploadedImages', this.successMessage, this.uploadedImages);
     })["catch"](function (e) {
       console.log('e', e);
+    });
+
+    var onEscape = function onEscape(e) {
+      if (_this3.modalImage !== null && e.keyCode === 27) {
+        _this3.modalImage = null;
+      }
+    };
+
+    document.addEventListener('keydown', onEscape);
+    this.$once('hook:destroyed', function () {
+      document.removeEventListener('keydown', onEscape);
     });
   }
 });
@@ -19802,7 +19848,7 @@ var render = function() {
             "div",
             {
               staticClass:
-                "w-full md:w-1/2  rounded border border-white p-8 pt-4 mt-2"
+                "w-full md:w-1/2  rounded border border-white p-8 pt-4 mt-8 md:mt-2"
             },
             [
               _c(
@@ -19813,21 +19859,118 @@ var render = function() {
                 [_vm._v("Previously uploaded images")]
               ),
               _vm._v(" "),
-              _vm._l(_vm.uploadedImages, function(uploadedImage, index) {
-                return _c("uploaded-image", {
-                  key: index,
-                  attrs: { image: uploadedImage }
-                })
-              }),
-              _c("br")
-            ],
-            2
+              _c(
+                "div",
+                { staticClass: "md:grid md:grid-cols-3 md:gap-4" },
+                _vm._l(_vm.uploadedImages, function(uploadedImage, index) {
+                  return _c("img", {
+                    key: index,
+                    staticClass:
+                      "cursor-pointer w-full rounded sm:w-4/5 mx-auto my-6 md:my-0",
+                    attrs: { src: uploadedImage },
+                    on: {
+                      click: function($event) {
+                        _vm.modalImage = uploadedImage
+                      }
+                    }
+                  })
+                }),
+                0
+              )
+            ]
           )
-        : _vm._e()
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          class: { hidden: !_vm.modalImage },
+          attrs: { id: "modal" },
+          on: { click: _vm.closeModal }
+        },
+        [
+          _c("div", { staticClass: "fixed z-10 inset-0 overflow-y-auto" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+              },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("span", {
+                  staticClass:
+                    "hidden sm:inline-block sm:align-middle sm:h-screen"
+                }),
+                _vm._v("​\n                "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full",
+                    attrs: {
+                      role: "dialog",
+                      "aria-modal": "true",
+                      "aria-labelledby": "modal-headline"
+                    }
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "bg-white px-4 py-1",
+                        attrs: { id: "innerModal" }
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "text-right cursor-pointer ml-auto font-bold text-2xl text-gray-700",
+                            on: {
+                              click: function($event) {
+                                _vm.modalImage = null
+                              }
+                            }
+                          },
+                          [_vm._v("×")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "flex items-center justify-center" },
+                          [
+                            _c("div", { staticClass: "my-3 text-center" }, [
+                              _c("img", {
+                                staticClass: "w-full rounded mx-auto",
+                                attrs: { src: _vm.modalImage, id: "modalImage" }
+                              })
+                            ])
+                          ]
+                        )
+                      ]
+                    )
+                  ]
+                )
+              ]
+            )
+          ])
+        ]
+      )
     ]
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "fixed inset-0 transition-opacity" }, [
+      _c("div", { staticClass: "absolute inset-0 bg-gray-500 opacity-75" })
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -19851,7 +19994,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("img", {
-      staticClass: "w-full sm:w-4/5 mx-auto",
+      staticClass: "w-full rounded sm:w-4/5 mx-auto",
       attrs: { src: _vm.image }
     }),
     _c("br")
@@ -32271,8 +32414,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/chris/dev/laravel/zzbetterrx/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/chris/dev/laravel/zzbetterrx/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/chris/dev/laravel/betterrx_test/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/chris/dev/laravel/betterrx_test/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
