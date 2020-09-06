@@ -33,6 +33,10 @@ return [
     'recaptcha' => [
         'key' => env('RECAPTCHA_KEY'),
         'secret' => env('RECAPTCHA_SECRET'),
+    ],
+
+    'betterrximageserver' => [
+        'url' => env('BETTERRX_IMAGE_SERVER')
     ]
 
 ];

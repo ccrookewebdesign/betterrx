@@ -1979,6 +1979,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2039,7 +2041,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     closeModal: function closeModal(e) {
-      if (!['innerModal', 'modalImage'].includes(e.srcElement.id)) {
+      if (!['innerModal', 'innerModalDiv', 'modalImage'].includes(e.srcElement.id)) {
         this.modalImage = null;
       }
     }
@@ -2090,7 +2092,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {},
   computed: {},
-  methods: {},
+  methods: {
+    loadModal: function loadModal() {
+      this.$emit('loadmodal', this.image);
+    }
+  },
   created: function created() {}
 });
 
@@ -19863,19 +19869,17 @@ var render = function() {
                 "div",
                 { staticClass: "md:grid md:grid-cols-3 md:gap-4" },
                 _vm._l(_vm.uploadedImages, function(uploadedImage, index) {
-                  return _c("img", {
+                  return _c("uploaded-image", {
                     key: index,
-                    staticClass:
-                      "cursor-pointer w-full rounded sm:w-4/5 mx-auto my-6 md:my-0",
-                    attrs: { src: uploadedImage },
+                    attrs: { image: uploadedImage },
                     on: {
-                      click: function($event) {
-                        _vm.modalImage = uploadedImage
+                      loadmodal: function($event) {
+                        _vm.modalImage = $event
                       }
                     }
                   })
                 }),
-                0
+                1
               )
             ]
           )
@@ -19927,7 +19931,7 @@ var render = function() {
                           "div",
                           {
                             staticClass:
-                              "text-right cursor-pointer ml-auto font-bold text-2xl text-gray-700",
+                              "w-2 text-right cursor-pointer ml-auto font-bold text-2xl text-gray-700",
                             on: {
                               click: function($event) {
                                 _vm.modalImage = null
@@ -19939,7 +19943,10 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "div",
-                          { staticClass: "flex items-center justify-center" },
+                          {
+                            staticClass: "flex items-center justify-center",
+                            attrs: { id: "innerModalDiv" }
+                          },
                           [
                             _c("div", { staticClass: "my-3 text-center" }, [
                               _c("img", {
@@ -19994,10 +20001,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("img", {
-      staticClass: "w-full rounded sm:w-4/5 mx-auto",
-      attrs: { src: _vm.image }
-    }),
-    _c("br")
+      staticClass:
+        "cursor-pointer w-full rounded sm:w-4/5 mx-auto my-6 md:my-0 hover:shadow-lg",
+      attrs: { src: _vm.image, id: "modalImage" },
+      on: { click: _vm.loadModal }
+    })
   ])
 }
 var staticRenderFns = []

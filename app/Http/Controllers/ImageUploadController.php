@@ -22,12 +22,15 @@ class ImageUploadController extends Controller {
 
         $image = base64_encode(file_get_contents(request()->file('image')->path()));
 
-        //$response = Http::asForm()->post('https://test.rxflodev.com', ['imageData' => $image])->json();
+        // live code hits the remote image server
+        //$response = Http::asForm()->post(config('services.betterrximageserver.url'), ['imageData' => $image])->json();
 
+        // dev/test code to avoid hitting remote image server unnecessarily
         $response = [];
         $response['status'] = 'success';
         $response['url'] = 'https://via.placeholder.com/' . rand(100, 800);
         $response['message'] = 'Image uploaded successfully.';
+        // end dev/test code
 
         if($response['status'] === 'success'){
             session(['uploadedImages' => Arr::prepend(session('uploadedImages') ?? [], $response['url'])]);

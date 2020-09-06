@@ -33,27 +33,29 @@
         <div class="w-full md:w-1/2  rounded border border-white p-8 pt-4 mt-8 md:mt-2" v-if="uploadedImages.length">
             <div class="text-sm md:text-xl font-bold mb-4 text-center">Previously uploaded images</div>
             <div class="md:grid md:grid-cols-3 md:gap-4">
-                <!--<uploaded-image @click="modalImage = uploadedImage" v-for="(uploadedImage, index) in uploadedImages" :key="index" :image="uploadedImage"/>-->
-                <img @click="modalImage = uploadedImage" v-for="(uploadedImage, index) in uploadedImages" :key="index" :src="uploadedImage"
-                     class="cursor-pointer w-full rounded sm:w-4/5 mx-auto my-6 md:my-0">
+                <uploaded-image v-for="(uploadedImage, index) in uploadedImages"
+                                :key="index"
+                                :image="uploadedImage"
+                                @loadmodal="modalImage = $event"/>
             </div>
         </div>
 
+        <!-- modal to display selected image -->
         <div :class="{'hidden': !modalImage}" @click="closeModal" id="modal">
             <div class="fixed z-10 inset-0 overflow-y-auto">
                 <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                     <div class="fixed inset-0 transition-opacity">
                         <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
                     </div>
-
                     <!-- This element is to trick the browser into centering the modal contents. -->
                     <span class="hidden sm:inline-block sm:align-middle sm:h-screen"></span>&#8203;
-                    <div
-                         class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
-                         role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+                    <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="modal-headline">
                         <div class="bg-white px-4 py-1" id="innerModal">
-                            <div @click="modalImage = null" class="text-right cursor-pointer ml-auto font-bold text-2xl text-gray-700">&times;</div>
-                            <div class="flex items-center justify-center">
+                            <div @click="modalImage = null" class="w-2 text-right cursor-pointer ml-auto font-bold text-2xl text-gray-700">&times;</div>
+                            <div class="flex items-center justify-center" id="innerModalDiv">
                                 <div class="my-3 text-center">
                                     <img :src="modalImage" class="w-full rounded mx-auto" id="modalImage">
                                 </div>
@@ -62,7 +64,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> <!-- end modal -->
     </div>
 </template>
 
@@ -126,10 +128,10 @@ export default {
         },
 
         closeModal(e){
-            if(!['innerModal', 'modalImage'].includes(e.srcElement.id)){
+            if(!['innerModal', 'innerModalDiv', 'modalImage'].includes(e.srcElement.id)){
                 this.modalImage = null;
             }
-        }
+        },
     },
     created(){
         axios.get('/uploaded-images')

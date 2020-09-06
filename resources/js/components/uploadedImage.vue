@@ -1,6 +1,6 @@
 <template>
     <div>
-        <img :src="image" class="w-full rounded sm:w-4/5 mx-auto"><br>
+        <img :src="image" @click="loadModal" class="cursor-pointer w-full rounded sm:w-4/5 mx-auto my-6 md:my-0 hover:shadow-lg" id="modalImage">
     </div>
 </template>
 
@@ -12,7 +12,11 @@ export default {
     },
     mounted(){},
     computed: {},
-    methods: {},
+    methods: {
+        loadModal(){
+            this.$emit('loadmodal', this.image);
+        }
+    },
     created(){}
 }
 </script>
