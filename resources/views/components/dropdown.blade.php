@@ -7,8 +7,8 @@
     ];
     @endphp
 
-<div class="relative" x-data="{ open: false }" @click.away="open = false">
-    <div @click="open = !open">
+<div class="relative" x-data="{ open: false }" x-click.away="open = false">
+    <div x-click="open = !open">
         {{ $trigger }}
     </div>
 

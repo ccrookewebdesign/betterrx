@@ -11,15 +11,24 @@
 @tailwind utilities;
 
 * {
-    font-family: Nunito;
+    font-family: Poppins;
 }
 
 [v-cloak] {
     display: none
 }
-.text-blue {
-    color: #4060B6;
+.bg-betterrx {
+    background: $betterrx-orange;
 }
+
+.bg-betterrx-lighter {
+    background: $betterrx-orange-lighter;
+}
+
+.text-betterrx-orange {
+    color: $betterrx-orange;
+}
+
 /*
  * Instructions
  *

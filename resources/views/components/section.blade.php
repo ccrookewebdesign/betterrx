@@ -1,5 +1,6 @@
-<section class="bg-gray-300 p-4 mb-6">
-    <div class="container">
+@props(['bgcolor' => 'bg-white', 'padding' => 'p-4'])
+<section {{ $attributes->merge(['class' => "p-4"]) }}>
+    <div class="container mx-auto w-full md:w-3/4">
         {{ $slot }}
     </div>
 </section>

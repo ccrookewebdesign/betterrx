@@ -1,7 +1,5 @@
 <?php
 
-// use App\Comment;
-// use App\Rules\Recaptcha;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,25 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-    /*$comment = App\Comment::create(['body' => 'Testing']);
-    dd($comment);*/
+Route::get('/', 'ImageUploadController@index')->name('home');
 
-    return view('welcome');
-})->name('home');
+Route::get('/uploaded-images', 'ImageUploadController@getUploadedImages')->name('get-uploaded-images');
 
-Route::get('/about', function () {
-    return view('welcome');
-})->name('about');
-
-Route::get('/testimonials', function () {
-    return view('welcome');
-})->name('testimonials');
-
-Route::get('/contact', function () {
-    return view('welcome');
-})->name('contact');
-
-Route::get('/series', function () {
-    return view('components.series');
-})->name('series');
+Route::post('/upload-image', 'ImageUploadController@upload')->name('upload-image');
