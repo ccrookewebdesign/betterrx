@@ -94,8 +94,8 @@ export default {
         }
     },
     methods: {
-        imageSelected(e){
-            this.image = e.target.files[0];
+        imageSelected(){
+            this.image = document.getElementById('imageUploader').files[0]; // e.target.files[0];
             this.errorMessage = null;
 
             if(this.image.type !== 'image/png'){
@@ -122,11 +122,10 @@ export default {
                         this.successMessage = resp.data.message;
                         this.previewImage = null;
                         this.image = null;
+                        document.getElementById('imageUploader').value = '';
                     } else {
                         this.errorMessage = resp.data.message;
                     }
-
-                    // console.log('uploadedImages', this.successMessage, this.uploadedImages);
                 }).catch(e => {
                 console.log('e', e);
             });
@@ -142,7 +141,6 @@ export default {
         axios.get('/uploaded-images')
             .then(resp => {
                 this.uploadedImages = resp.data.uploadedImages === null ? [] : resp.data.uploadedImages;
-                // console.log('uploadedImages', this.successMessage, this.uploadedImages);
             }).catch(e => {
             console.log('e', e);
         });

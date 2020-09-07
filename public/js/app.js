@@ -2007,10 +2007,11 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    imageSelected: function imageSelected(e) {
+    imageSelected: function imageSelected() {
       var _this = this;
 
-      this.image = e.target.files[0];
+      this.image = document.getElementById('imageUploader').files[0]; // e.target.files[0];
+
       this.errorMessage = null;
 
       if (this.image.type !== 'image/png') {
@@ -2037,10 +2038,10 @@ __webpack_require__.r(__webpack_exports__);
           _this2.successMessage = resp.data.message;
           _this2.previewImage = null;
           _this2.image = null;
+          document.getElementById('imageUploader').value = '';
         } else {
           _this2.errorMessage = resp.data.message;
-        } // console.log('uploadedImages', this.successMessage, this.uploadedImages);
-
+        }
       })["catch"](function (e) {
         console.log('e', e);
       });
@@ -2055,7 +2056,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this3 = this;
 
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/uploaded-images').then(function (resp) {
-      _this3.uploadedImages = resp.data.uploadedImages === null ? [] : resp.data.uploadedImages; // console.log('uploadedImages', this.successMessage, this.uploadedImages);
+      _this3.uploadedImages = resp.data.uploadedImages === null ? [] : resp.data.uploadedImages;
     })["catch"](function (e) {
       console.log('e', e);
     });
@@ -32383,8 +32384,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/chris/dev/laravel/betterrx_test/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/chris/dev/laravel/betterrx_test/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/chris/dev/laravel/brx/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/chris/dev/laravel/brx/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
