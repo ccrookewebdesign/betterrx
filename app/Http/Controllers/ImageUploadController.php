@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Http;
 class ImageUploadController extends Controller {
 
     public function index(){
+        if(request()->has('clearsession')){
+            session()->flush();
+        }
         return view('welcome');
     }
 
@@ -20,10 +23,13 @@ class ImageUploadController extends Controller {
             return response(['status' => 'success', 'message' => 'Image uploaded successfully']);
         }
 
-        $image = base64_encode(file_get_contents(request()->file('image')->path()));
-
         // live code hits the remote image server
-        //$response = Http::asForm()->post(config('services.betterrximageserver.url'), ['imageData' => $image])->json();
+        /*$response = Http::asForm()
+            ->post(
+                config('services.betterrximageserver.url'),
+                ['imageData' => base64_encode(file_get_contents(request()->file('image')->path()))]
+            )
+            ->json();*/
 
         // dev/test code to avoid hitting remote image server unnecessarily
         $response = [];

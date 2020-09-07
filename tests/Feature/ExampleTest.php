@@ -13,8 +13,8 @@ class ExampleTest extends TestCase {
      *
      * @return void
      */
-    public function testHome(){
-        $response = $this->get('/');
+    public function testViewImageUploader(){
+        $response = $this->get(route('image-uploader'));
         $response->assertStatus(200);
     }
 

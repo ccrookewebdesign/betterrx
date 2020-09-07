@@ -1981,6 +1981,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2032,6 +2035,8 @@ __webpack_require__.r(__webpack_exports__);
 
         if (resp.data.status === 'success') {
           _this2.successMessage = resp.data.message;
+          _this2.previewImage = null;
+          _this2.image = null;
         } else {
           _this2.errorMessage = resp.data.message;
         } // console.log('uploadedImages', this.successMessage, this.uploadedImages);
@@ -19850,13 +19855,8 @@ var render = function() {
       ]),
       _vm._v(" "),
       _vm.uploadedImages.length
-        ? _c(
-            "div",
-            {
-              staticClass:
-                "w-full md:w-1/2  rounded border border-white p-8 pt-4 mt-8 md:mt-2"
-            },
-            [
+        ? _c("div", { staticClass: "w-full md:w-1/2 mt-8 md:mt-2" }, [
+            _c("div", { staticClass: "rounded border border-white p-8 pt-4" }, [
               _c(
                 "div",
                 {
@@ -19881,8 +19881,8 @@ var render = function() {
                 }),
                 1
               )
-            ]
-          )
+            ])
+          ])
         : _vm._e(),
       _vm._v(" "),
       _c(
@@ -20001,8 +20001,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("img", {
-      staticClass:
-        "cursor-pointer w-full rounded sm:w-4/5 mx-auto my-6 md:my-0 hover:shadow-lg",
+      staticClass: "cursor-pointer w-full rounded my-6 md:my-0 hover:shadow-lg",
       attrs: { src: _vm.image, id: "modalImage" },
       on: { click: _vm.loadModal }
     })
@@ -32177,40 +32176,6 @@ module.exports = function(module) {
 
 /***/ }),
 
-/***/ "./resources/js sync recursive \\.vue$/":
-/*!***********************************!*\
-  !*** ./resources/js sync \.vue$/ ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var map = {
-	"./components/fileUpload.vue": "./resources/js/components/fileUpload.vue",
-	"./components/uploadedImage.vue": "./resources/js/components/uploadedImage.vue"
-};
-
-
-function webpackContext(req) {
-	var id = webpackContextResolve(req);
-	return __webpack_require__(id);
-}
-function webpackContextResolve(req) {
-	if(!__webpack_require__.o(map, req)) {
-		var e = new Error("Cannot find module '" + req + "'");
-		e.code = 'MODULE_NOT_FOUND';
-		throw e;
-	}
-	return map[req];
-}
-webpackContext.keys = function webpackContextKeys() {
-	return Object.keys(map);
-};
-webpackContext.resolve = webpackContextResolve;
-module.exports = webpackContext;
-webpackContext.id = "./resources/js sync recursive \\.vue$/";
-
-/***/ }),
-
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -32220,13 +32185,9 @@ webpackContext.id = "./resources/js sync recursive \\.vue$/";
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); // const files = require.context('./', true, /\.vue$/i)
+// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-var files = __webpack_require__("./resources/js sync recursive \\.vue$/");
-
-files.keys().map(function (key) {
-  return Vue.component(key.split('/').pop().split('.')[0], files(key)["default"]);
-});
 Vue.component('file-upload', __webpack_require__(/*! ./components/fileUpload.vue */ "./resources/js/components/fileUpload.vue")["default"]);
 var app = new Vue({
   el: '#app'

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', 'ImageUploadController@index')->name('home');
+Route::get('/', 'ImageUploadController@index')->name('image-uploader');
 
 Route::get('/uploaded-images', 'ImageUploadController@getUploadedImages')->name('get-uploaded-images');
 

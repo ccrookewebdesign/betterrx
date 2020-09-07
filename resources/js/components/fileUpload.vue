@@ -30,13 +30,15 @@
                 </div>
             </form>
         </div>
-        <div class="w-full md:w-1/2  rounded border border-white p-8 pt-4 mt-8 md:mt-2" v-if="uploadedImages.length">
-            <div class="text-sm md:text-xl font-bold mb-4 text-center">Previously uploaded images</div>
-            <div class="md:grid md:grid-cols-3 md:gap-4">
-                <uploaded-image v-for="(uploadedImage, index) in uploadedImages"
-                                :key="index"
-                                :image="uploadedImage"
-                                @loadmodal="modalImage = $event"/>
+        <div class="w-full md:w-1/2 mt-8 md:mt-2" v-if="uploadedImages.length">
+            <div class="rounded border border-white p-8 pt-4">
+                <div class="text-sm md:text-xl font-bold mb-4 text-center">Previously uploaded images</div>
+                <div class="md:grid md:grid-cols-3 md:gap-4">
+                    <uploaded-image v-for="(uploadedImage, index) in uploadedImages"
+                                    :key="index"
+                                    :image="uploadedImage"
+                                    @loadmodal="modalImage = $event"/>
+                </div>
             </div>
         </div>
 
@@ -49,7 +51,8 @@
                     </div>
                     <!-- This element is to trick the browser into centering the modal contents. -->
                     <span class="hidden sm:inline-block sm:align-middle sm:h-screen"></span>&#8203;
-                    <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+                    <div
+                        class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
                         role="dialog"
                         aria-modal="true"
                         aria-labelledby="modal-headline">
@@ -112,17 +115,19 @@ export default {
             data.append('image', this.image);
 
             axios.post('/upload-image', data)
-                .then((resp) => {
+                .then(resp => {
                     this.uploadedImages = resp.data.uploadedImages;
 
                     if(resp.data.status === 'success'){
                         this.successMessage = resp.data.message;
+                        this.previewImage = null;
+                        this.image = null;
                     } else {
                         this.errorMessage = resp.data.message;
                     }
 
                     // console.log('uploadedImages', this.successMessage, this.uploadedImages);
-                }).catch((e) => {
+                }).catch(e => {
                 console.log('e', e);
             });
         },
@@ -135,14 +140,14 @@ export default {
     },
     created(){
         axios.get('/uploaded-images')
-            .then((resp) => {
+            .then(resp => {
                 this.uploadedImages = resp.data.uploadedImages === null ? [] : resp.data.uploadedImages;
                 // console.log('uploadedImages', this.successMessage, this.uploadedImages);
-            }).catch((e) => {
+            }).catch(e => {
             console.log('e', e);
         });
 
-        const onEscape = (e) => {
+        const onEscape = e => {
             if(this.modalImage !== null && e.keyCode === 27){
                 this.modalImage = null;
             }
