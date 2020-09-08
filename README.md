@@ -6,9 +6,7 @@ Simple Laravel/Vue web page for uploading png files to an external image server
 
 Rename *env.example* to *.env* in root directory
 
-Run **composer install** from the command line
-
-run **docker-compose up** from the command line
+Run **docker-compose up** from the command line
 
 http://localhost:8000/
 
