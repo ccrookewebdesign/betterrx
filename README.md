@@ -14,6 +14,9 @@ http://localhost:8000/
 
 run **docker-compose exec laravel-app ./vendor/bin/phpunit** from the command line
 
+## Repository
+
+[https://github.com/ccrookewebdesign/betterrx](https://github.com/ccrookewebdesign/betterrx)
 
 ## License
 
